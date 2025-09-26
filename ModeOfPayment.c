@@ -3,7 +3,7 @@
 #include <memory>
 using namespace std;
 
-// ---- Enum for Payment Modes ----
+
 enum class PaymentMode {
     PayPal,
     GooglePay,
@@ -11,14 +11,14 @@ enum class PaymentMode {
     Unknown
 };
 
-// ---- Interface (DIP: Depend on abstractions) ----
+
 class IPaymentProcessor {
 public:
     virtual void processPayment(double amount) = 0;
     virtual ~IPaymentProcessor() = default;
 };
 
-// ---- Concrete Payment Processors ----
+
 class PayPalPayment : public IPaymentProcessor {
 public:
     void processPayment(double amount) override {
@@ -43,7 +43,7 @@ public:
     }
 };
 
-// ---- Factory (SRP + OCP: new modes just need new classes) ----
+// Factory --SRP
 class PaymentProcessorFactory {
 public:
     static unique_ptr<IPaymentProcessor> createProcessor(PaymentMode mode) {
@@ -60,7 +60,7 @@ public:
     }
 };
 
-// ---- Checkout Function (Requirement Fulfilled) ----
+
 void checkout(PaymentMode mode, double amount) {
     auto processor = PaymentProcessorFactory::createProcessor(mode);
     if (processor) {
@@ -70,7 +70,7 @@ void checkout(PaymentMode mode, double amount) {
     }
 }
 
-// ---- Example Usage ----
+
 int main() {
     double amount = 150.75;
 
