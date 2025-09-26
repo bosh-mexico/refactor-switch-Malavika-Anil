@@ -32,6 +32,11 @@ For each payment mode, the system must print a confirmation message indicating:
 
 - Placeholder logic should be available for future integration with actual payment processing APIs.
 
+  ### Comments on code
+ - checkout function does both processing and output console printing → violates single responsibility.
+ - Unknown enum is unnecessary when a default: case already exists, or avoid switch and use enum unknown
+ - Tight coupling → adding a new payment mode requires changes in checkout and main.
+
 #### C++ Implementtaion
 ```
 #include <iostream>
@@ -47,7 +52,7 @@ enum class PaymentMode {
 };
 
 // Checkout function
-void checkout(PaymentMode mode, double amount) {
+void checkout(PaymentMode mode, double amount) {     
     switch (mode) {
         case PaymentMode::PayPal:
             cout << "Processing PayPal payment of $" << amount << endl;
