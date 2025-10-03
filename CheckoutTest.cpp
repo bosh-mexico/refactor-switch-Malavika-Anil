@@ -3,9 +3,12 @@
 #include <gtest/gtest.h>
 #include <string>
 
+class FakePayPalPaymentProcessor : public PaymentProcessor{
+};
+
 TEST(CheckoutTest, UsesPolymorphism) {
     Checkout checkout;
-    PayPalPayment paypal;
+    FakePaymentProcessor paypal;
 
     testing::internal::CaptureStdout();
     checkout.processPayment(paypal, 200.0);
